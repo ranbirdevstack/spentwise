@@ -12,7 +12,7 @@ The application is designed with a clean and responsive dashboard, making person
 Add your deployed website link here.
 
 ```
-https://your-live-demo-link.com
+https://spentwise-five.vercel.app/
 ```
 
 ---
