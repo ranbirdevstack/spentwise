@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SpentWise is a smart salary and expense tracker that helps users manage income, monitor spending, analyze savings with charts, generate PDF reports, and maintain better financial control.">
+    <title>SpentWise</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <header class="main-header">
+
+        <div class="brand">
+            <h1>SpentWise</h1>
+            <p class="subtitle">Salary & Expense Tracker Module</p>
+        </div>
+
+        <div class="header-controls">
+
+          <label for="currencyToggle">Currency</label>
+<select id="currencyToggle" class="form-select">
+    <option value="INR">INR (₹)</option>
+    <option value="USD">USD ($)</option>
+</select>
+
+
+            <button
+                id="downloadReportBtn"
+                class="btn btn-primary">
+                Download PDF Report
+            </button>
+
+        </div>
+
+    </header>
+
+    <div
+        id="thresholdAlert"
+        class="alert-banner alert-danger hidden">
+
+        <strong>Warning!</strong>
+        Remaining Balance has dropped below 10% of your Salary.
+
+    </div>
+
+    <div
+        id="errorBanner"
+        class="alert-banner alert-warning hidden">
+
+        <span id="errorMessage"></span>
+
+    </div>
+
+    <main class="dashboard-grid">
+
+        <section class="card">
+
+            <h2 class="card-title">
+                Set Monthly Salary
+            </h2>
+
+            <form
+                id="salaryForm"
+                class="input-form">
+
+                <div class="form-group">
+
+                    <label
+                        for="salaryInput"
+                        class="form-label">
+                        Total Salary
+                    </label>
+
+                    <input
+                        id="salaryInput"
+                        type="number"
+                        class="form-input"
+                        placeholder="Enter Salary">
+
+                </div>
+
+                 <button
+            type="submit"
+            id="salaryBtn"
+            class="btn btn-dark w-100">
+
+            Add Salary
+
+        </button>
+
+        <button
+            type="button"
+            id="editSalaryBtn"
+            class="btn btn-primary w-100 hidden">
+
+            Edit Salary
+
+        </button>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <h2 class="card-title">
+                Add Expense
+            </h2>
+
+            <form
+                id="expenseForm"
+                class="input-form">
+
+                <div class="form-group">
+
+                    <label
+                        for="expenseNameInput"
+                        class="form-label">
+
+                        Expense Name
+
+                    </label>
+
+                    <input
+                        id="expenseNameInput"
+                        type="text"
+                        class="form-input"
+                        placeholder="Expense Name">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="expenseAmountInput"
+                        class="form-label">
+
+                        Expense Amount
+
+                    </label>
+
+                    <input
+                        id="expenseAmountInput"
+                        type="number"
+                        class="form-input"
+                        placeholder="Expense Amount">
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success w-100">
+
+                    Add Expense
+
+                </button>
+
+            </form>
+
+        </section>
+
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+
+                <span class="metric-label">
+
+                    Total Salary
+
+                </span>
+
+                <span
+                    id="displaySalary"
+                    class="metric-value">
+
+                    ₹0.00
+
+                </span>
+
+            </div>
+
+            <div class="metric-card">
+
+                <span class="metric-label">
+
+                    Total Expenses
+
+                </span>
+
+                <span
+                    id="displayExpenses"
+                    class="metric-value">
+
+                    ₹0.00
+
+                </span>
+
+            </div>
+
+            <div
+                id="balanceCard"
+                class="metric-card">
+
+                <span class="metric-label">
+
+                    Remaining Balance
+
+                </span>
+
+                <span
+                    id="displayBalance"
+                    class="metric-value">
+
+                    ₹0.00
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <section class="card">
+
+            <h2 class="card-title">
+                Expense Ledger
+            </h2>
+
+            <div class="ledger-scroll-box">
+
+                <ul
+                    id="expenseList"
+                    class="ledger-list">
+
+                </ul>
+
+            </div>
+
+        </section>
+
+        <section class="card chart-center-container">
+
+            <h2 class="card-title alignment-override">
+                Expense Analysis
+            </h2>
+
+            <div class="chart-wrapper">
+
+                <canvas id="analyticsChart"></canvas>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
