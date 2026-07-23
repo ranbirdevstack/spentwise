@@ -604,20 +604,11 @@ function generatePDFReport(){
 
     doc.setFontSize(14);
 
-    doc.text(
-        "Total Salary : " + pdfCurrency(salary),
-        20,
-        y
-    );
+   doc.text("Total Salary : " + pdfCurrency(salary),20,y);
 
     y += 10;
 
-    doc.text(
-        "Total Expenses : " + pdfCurrency(getTotalExpenses()),
-        20,
-        y
-    );
-
+   doc.text("Total Expenses : " + pdfCurrency(getTotalExpenses()),20,y);
     y += 10;
 
     doc.text(
@@ -719,6 +710,17 @@ downloadReportBtn.addEventListener(
     "click",
     generatePDFReport
 );
+function pdfCurrency(amount){
+
+    if(currentCurrency === "USD"){
+
+        return "$" + (amount * exchangeRate).toFixed(2);
+
+    }
+
+    return "Rs. " + amount.toFixed(2);
+
+}
 
 function initializeDashboard(){
 
