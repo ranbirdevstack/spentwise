@@ -652,7 +652,7 @@ function generatePDFReport(){
 
             }else{
 
-                amount="₹"+expense.amount.toFixed(2);
+                amount="Rs."+expense.amount.toFixed(2);
 
             }
 
