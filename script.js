@@ -571,6 +571,18 @@ function generatePDFReport(){
 
     const doc = new jsPDF();
 
+    function pdfCurrency(amount){
+
+        if(currentCurrency === "USD"){
+
+            return "$" + (amount * exchangeRate).toFixed(2);
+
+        }
+
+        return "Rs. " + amount.toFixed(2);
+
+    }
+
     let y = 20;
 
     doc.setFontSize(22);
@@ -583,8 +595,7 @@ function generatePDFReport(){
     doc.setTextColor(0,0,0);
 
     doc.text(
-        "Generated : " +
-        new Date().toLocaleString(),
+        "Generated : " + new Date().toLocaleString(),
         20,
         y
     );
@@ -594,8 +605,7 @@ function generatePDFReport(){
     doc.setFontSize(14);
 
     doc.text(
-        "Total Salary : " +
-        formatCurrency(salary),
+        "Total Salary : " + pdfCurrency(salary),
         20,
         y
     );
@@ -603,8 +613,7 @@ function generatePDFReport(){
     y += 10;
 
     doc.text(
-        "Total Expenses : " +
-        formatCurrency(getTotalExpenses()),
+        "Total Expenses : " + pdfCurrency(getTotalExpenses()),
         20,
         y
     );
@@ -612,8 +621,7 @@ function generatePDFReport(){
     y += 10;
 
     doc.text(
-        "Remaining Balance : " +
-        formatCurrency(getRemainingBalance()),
+        "Remaining Balance : " + pdfCurrency(getRemainingBalance()),
         20,
         y
     );
@@ -622,15 +630,11 @@ function generatePDFReport(){
 
     doc.setFontSize(16);
 
-    doc.text(
-        "Expense Ledger",
-        20,
-        y
-    );
+    doc.text("Expense Ledger",20,y);
 
     y += 12;
 
-    if(expenses.length===0){
+    if(expenses.length === 0){
 
         doc.text(
             "No expenses added.",
@@ -638,41 +642,29 @@ function generatePDFReport(){
             y
         );
 
-        y+=10;
+        y += 10;
 
     }else{
 
         expenses.forEach(function(expense,index){
 
-            let amount;
-
-            if(currentCurrency==="USD"){
-
-                amount="$"+(expense.amount*exchangeRate).toFixed(2);
-
-            }else{
-
-                amount="Rs."+expense.amount.toFixed(2);
-
-            }
-
             doc.text(
-
-                (index+1)+". "+expense.name+" : "+amount,
-
+                (index + 1) +
+                ". " +
+                expense.name +
+                " : " +
+                pdfCurrency(expense.amount),
                 20,
-
                 y
-
             );
 
-            y+=8;
+            y += 8;
 
-            if(y>260){
+            if(y > 260){
 
                 doc.addPage();
 
-                y=20;
+                y = 20;
 
             }
 
@@ -688,15 +680,15 @@ function generatePDFReport(){
         const chartImage =
             chartCanvas.toDataURL("image/png",1.0);
 
-        if(y>150){
+        if(y > 150){
 
             doc.addPage();
 
-            y=20;
+            y = 20;
 
         }
 
-        y+=10;
+        y += 10;
 
         doc.setFontSize(16);
 
@@ -706,22 +698,15 @@ function generatePDFReport(){
             y
         );
 
-        y+=8;
+        y += 8;
 
         doc.addImage(
-
             chartImage,
-
             "PNG",
-
             20,
-
             y,
-
             170,
-
             90
-
         );
 
     }
@@ -731,11 +716,8 @@ function generatePDFReport(){
 }
 
 downloadReportBtn.addEventListener(
-
     "click",
-
     generatePDFReport
-
 );
 
 function initializeDashboard(){
